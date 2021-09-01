@@ -8,7 +8,7 @@ addpath('./function/')
 para = para_init();
 d_BR = sqrt(para.RIS_loc(1)^2 + para.RIS_loc(2)^2);
 theta_degree = -90:90;
-rho_all = [100000];
+rho_all = [10,100,1000,100000];
 
 %% Steering Vector
 a = ULA_func(para.phi_m,para.M);

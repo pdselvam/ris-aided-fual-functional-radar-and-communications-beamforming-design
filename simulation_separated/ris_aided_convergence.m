@@ -16,11 +16,6 @@ ac = a(para.Mr+1:end);
 Z = para.Mc*eye(para.Mc) - ac*ac';
 
 %% Generate user location
-% [user_loc, angle.user, d_RU, d_BU] = generate_user_location(para);
-% angle.RIS = atan(para.RIS_loc(2)/para.RIS_loc(1)); % direction of RIS from BS
-% angle.BS = pi + angle.RIS - pi/4; % direction of BS from RIS
-% plot_location(para, user_loc);
-% save('user_location.mat','user_loc','angle','d_RU','d_BU');
 load('user_location.mat');
 
 %% Path loss
@@ -30,7 +25,6 @@ path_loss.BU = sqrt(10.^((-para.noise-path_loss.BU)/10));
 path_loss.BRU = sqrt(10.^((-para.noise-path_loss.BRU)/10));
 
 % Channel
-% [h, Hc, Hr, dc, dr, ~, ~] = generate_channel(para, angle, path_loss, ar, ac);
 load('channel.mat');
 
 figure();

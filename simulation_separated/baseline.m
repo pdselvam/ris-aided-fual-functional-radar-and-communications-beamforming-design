@@ -2,15 +2,14 @@ clc
 clear all
 close all
 
-addpath('./cvx/')
-cvx_setup;
-% LASTN = maxNumCompThreads(8); % require 8 CPUs
-array_index = getenv('PBS_ARRAY_INDEX');
-i1 = str2num(array_index);
-rng(i1);
+% For PBS
+% addpath('./cvx/')
+% cvx_setup;
+% array_index = getenv('PBS_ARRAY_INDEX');
+% i1 = str2num(array_index);
+% rng(i1);
 % rho_all = [1e-2,1,20,50,80,100,200,250,300,350,400,450,500,800,1e3,2000,8000,1e4,1e5,1e6,1e7,1e8];
-rho_all = [300,2000,3000,8000,1e4,1e6,1e8,2e8,5e8];
-rho = rho_all(i1);
+% rho = rho_all(i1);
 
 addpath('./function/')
 %% Parameters
@@ -37,10 +36,12 @@ path_loss.BU = sqrt(10.^((-para.noise-path_loss.BU)/10));
 path_loss.BRU = sqrt(10.^((-para.noise-path_loss.BRU)/10));
 
 %% Monte Carlo Simulation
-pc = parcluster('local'); 
-pc.NumWorkers = 28;
-poolobj = parpool(pc, 28);
-fprintf('Number of workers: %g\n', poolobj.NumWorkers);
+
+% For PBS
+% pc = parcluster('local'); 
+% pc.NumWorkers = 28;
+% poolobj = parpool(pc, 28);
+% fprintf('Number of workers: %g\n', poolobj.NumWorkers);
 
 ite = 100;
 wsr_all = zeros(ite,1);

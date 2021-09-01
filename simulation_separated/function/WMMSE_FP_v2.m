@@ -69,12 +69,8 @@ while diff > epsilon
     r = Hr' * Theta * h + dr;
     wsr = WSR(para, c, r, P, Rq);
     diff = abs(wsr - wsr_pre);
-%     wsr = [wsr WSR(para, c, r, P, Rq)];
-%     diff = abs(wsr(end) - wsr(end-1));
-%     disp(['step--' num2str(step) ', WSR--' num2str(wsr(end))]);
-end
 
-% wsr = wsr(end);
+end
 
 
 end

@@ -2,14 +2,17 @@ clc
 clear all
 close all
 
-addpath('./cvx/')
-cvx_setup;
-array_index = getenv('PBS_ARRAY_INDEX');
-i1 = str2num(array_index);
-rng(i1);
-% rho_all = [1e-2,1,20,50,80,100,200,500,900,1e3,1e4,1e5,1e6,1e7,1e8];
-rho_all = [260,270,280,290];
-rho = rho_all(i1);
+% For PBS
+% addpath('./cvx/')
+% cvx_setup;
+% array_index = getenv('PBS_ARRAY_INDEX');
+% i1 = str2num(array_index);
+% rng(i1);
+% % rho_all = [1e-2,1,20,50,80,100,200,500,900,1e3,1e4,1e5,1e6,1e7,1e8];
+% rho_all = [260,270,280,290];
+% rho = rho_all(i1);
+
+rho = 1e3;
 
 addpath('./function/')
 %% Parameters
@@ -34,10 +37,12 @@ path_loss.BU = sqrt(10.^((-para.noise-path_loss.BU)/10));
 path_loss.BRU = sqrt(10.^((-para.noise-path_loss.BRU)/10));
 
 %% Monte Carlo Simulation
-pc = parcluster('local'); 
-pc.NumWorkers = 28;
-poolobj = parpool(pc, 28);
-fprintf('Number of workers: %g\n', poolobj.NumWorkers);
+
+% For PBS
+% pc = parcluster('local'); 
+% pc.NumWorkers = 28;
+% poolobj = parpool(pc, 28);
+% fprintf('Number of workers: %g\n', poolobj.NumWorkers);
 
 ite = 100;
 wsr_all = zeros(ite,1);
@@ -66,6 +71,4 @@ end
 wsr_average = mean(wsr_all);
 prob_power_average = mean(prob_power_all);
 pattern_average = mean(pattern_all,2);
-%save('baseline_data_pattern.mat','para','wsr_average','prob_power_average','pattern_average');
-
 save(['baseline_data_' num2str(rho) '.mat'],'para','wsr_average','prob_power_average','pattern_average');

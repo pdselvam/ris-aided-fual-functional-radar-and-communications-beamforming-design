@@ -2,14 +2,16 @@ clc
 clear all
 close all
 
-addpath('./cvx/')
-cvx_setup;
-array_index = getenv('PBS_ARRAY_INDEX');
-i1 = str2num(array_index);
-rng(i1);
+% For PBS
+% addpath('./cvx/')
+% cvx_setup;
+% array_index = getenv('PBS_ARRAY_INDEX');
+% i1 = str2num(array_index);
+% rng(i1);
 %rho_all = [1e-2,1,20,50,80,100,120,150,180,200,250,300,350,400,450,500,900,1e3,2000,3000,8000,1e4,1e5,1e6,1e7,1e8,2e8];
-rho_all = [402,405,408];
-rho = rho_all(i1);
+% rho = rho_all(i1);
+
+rho = 1e3;
 
 addpath('./function/')
 %% Parameters
@@ -27,9 +29,7 @@ Z = para.Mc*eye(para.Mc) - ac*ac';
 [user_loc, angle.user, d_RU, d_BU] = generate_user_location(para);
 angle.RIS = atan(para.RIS_loc(2)/para.RIS_loc(1)); % direction of RIS from BS
 angle.BS = pi + angle.RIS - pi/4; % direction of BS from RIS
-% plot_location(para, user_loc);
-% save('user_location.mat','user_loc','angle','d_RU','d_BU');
-% load('user_location.mat');
+plot_location(para, user_loc);
 
 %% Path loss
 path_loss.BU = para.pathloss_direct(d_BU)';
@@ -37,12 +37,15 @@ path_loss.BRU = para.pathloss_indirect(d_BR) + para.pathloss_indirect(d_RU)';
 path_loss.BU = sqrt(10.^((-para.noise-path_loss.BU)/10));
 path_loss.BRU = sqrt(10.^((-para.noise-path_loss.BRU)/10));
 
-pc = parcluster('local'); 
-pc.NumWorkers = 28;
-poolobj = parpool(pc, 28);
-fprintf('Number of workers: %g\n', poolobj.NumWorkers);
 
 %% Monte Carlo Simulation
+
+% For PBS
+% pc = parcluster('local'); 
+% pc.NumWorkers = 28;
+% poolobj = parpool(pc, 28);
+% fprintf('Number of workers: %g\n', poolobj.NumWorkers);
+
 ite = 100;
 wsr_all = zeros(ite,1);
 prob_power_all = zeros(ite,1);
@@ -62,9 +65,6 @@ parfor step = 1:ite
     prob_power = real(ar'*Rq*ar + ac'*(P*P')*ac);
     prob_power = 10*log10(prob_power);
     
-%     % Update channel
-%     [h, Hc, Hr, dc, dr, ~, ~] = generate_channel(para, angle, path_loss, ar, ac);
-%     [h, Hc, Hr, dc, dr, NLOS] = update_channel(para, LOS, NLOS, dc, dr, path_loss);
     
     wsr_all(step) = wsr;
     prob_power_all(step) = prob_power;

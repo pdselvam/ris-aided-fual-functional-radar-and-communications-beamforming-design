@@ -61,7 +61,6 @@ while diff > epsilon
     
     c = H' * Theta * h + d;
     wsr = WSR(para, c, P);
-    fprintf('WSR: %f\n', wsr);
     diff = abs(wsr - wsr_pre);
 end
 end
