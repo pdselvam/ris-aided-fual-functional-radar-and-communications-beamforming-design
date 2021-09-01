@@ -10,16 +10,15 @@ This is the project submitted in fulfillment of requirements for the degree of M
 - Reconfigurable intelligent surface
 - MIMO radar system
 - MISO multi-user wireless communication system
-- Weighted Minimum Mean Square Error (WMMSE) optimization framework
-- Fractional programming
-- Semidefinite Relaxation (SDR)
+- Weighted Minimum Mean Square Error (WMMSE) optimization framework [[1](https://ieeexplore.ieee.org/abstract/document/4712693)]
+- Fractional programming [[2](https://ieeexplore.ieee.org/abstract/document/8314727), [3](https://ieeexplore.ieee.org/abstract/document/8310563)]
+- Semidefinite Relaxation (SDR) [[4](https://ieeexplore.ieee.org/abstract/document/5447068)]
 
 ### Contributions
 
-- We propose a joint beamforming design at BS and RIS that maximizes WSR and the probing power at target for both separated and shared deployment. To our knowledge, this is the first study of WSR maximising for a RIS-aided DFRC system. As in [[1](https://ieeexplore.ieee.org/abstract/document/9200993)], we also consider probing power as radar metric to make a clear tradeoff comparison. However, the logarithm form and additional radar signal term of WSR, the quadratic form of probing power, and the quadratic equality power constraint make the optimization of joint beamforming rather non-convex and elusive.
-- This is also the first work that investigates the novel group or fully connected RIS model in RIS-aided DFRC. This novel RIS model is capable of enhancing the SNR performance especially in the Rayleigh fading channel [[2](https://ieeexplore.ieee.org/abstract/document/9514409)], but its potential benefits for enlarging achievable region of WSR and probing power in DFRC are studied in this project.
-- We propose an AO algorithm for the proposed non-convex design in separated deployment. As was proposed in [[1](https://ieeexplore.ieee.org/abstract/document/9200993)], the active beamforming problem is reformulated to a semidefinite programming (SDP) problem using WMMSE framework. The passive beamforming problem is reformulated to an unconstrained problem based on Lagrangian dual transform [[3](https://ieeexplore.ieee.org/abstract/document/8310563)], quadratic transform [[4](https://ieeexplore.ieee.org/abstract/document/8314727)], and scattering-reactance relationship [[2](https://ieeexplore.ieee.org/abstract/document/9514409)]. Compared with the passive beamforming optimization method in [[5](https://ieeexplore.ieee.org/abstract/document/8982186)], this method is an extended version that considers an additional radar signal term and generalized RIS model.
-- We propose another AO algorithm to solve the non-convex design for shared deployment. The optimal active beamforming can be obtained by WMMSE framework and semidefinite relaxation (SDR) [[6](https://ieeexplore.ieee.org/abstract/document/5447068)]. In contrast to the majorization-minimization (MM) method used in [[1](https://ieeexplore.ieee.org/abstract/document/9200993)], which requires several steps to reach the optimal values, this SDR method only needs one step and therefore has lower complexity. The passive beamforming is optimized using the same method as separated deployment.
+-  To our knowledge, this is the first study of WSR maximising for a RIS-aided DFRC system. 
+- This is also the first work that investigates the novel group or fully connected RIS model [[5](https://ieeexplore.ieee.org/abstract/document/9514409)] in RIS-aided DFRC.
+- Two alternating optimization algorithms for the proposed non-convex beamforming design.
 
 ## Running the simulations
 
